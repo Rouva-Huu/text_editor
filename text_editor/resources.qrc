@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/add.png</file>
+        <file>img/add_file.png</file>
+        <file>img/add_space.png</file>
+        <file>img/choose_font.png</file>
+        <file>img/copy.png</file>
+        <file>img/delete_file.png</file>
+        <file>img/file.png</file>
+        <file>img/find_and_replace.png</file>
+        <file>img/font_size.png</file>
+        <file>img/icon.png</file>
+        <file>img/icon1.png</file>
+        <file>img/open_file.png</file>
+        <file>img/paint_palette.png</file>
+        <file>img/paste.png</file>
+        <file>img/redo.png</file>
+        <file>img/remove.png</file>
+        <file>img/save.png</file>
+        <file>img/save_all.png</file>
+        <file>img/save_as.png</file>
+        <file>img/save_close.png</file>
+        <file>img/search.png</file>
+        <file>img/table.png</file>
+        <file>img/text_color.png</file>
+        <file>img/undo.png</file>
+    </qresource>
+</RCC>
