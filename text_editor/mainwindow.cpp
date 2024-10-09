@@ -16,22 +16,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_triggered() // creating a new file
 {
-    if (ui->tab) {
-
-    }
 }
 
 void MainWindow::on_action_2_triggered() // open existing file
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
+    QString filePath = QFileDialog::getOpenFileName(this,
                                                     tr("Open file"),
                                                     QDir::currentPath(),
                                                     "Text Files (*.txt);;All Files (*.*)");
-    if (fileName.isEmpty()) {
+    if (filePath.isEmpty()) {
         return;
     }
 
-    QFile file(fileName);
+    QFile file(filePath);
 
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл.");
@@ -41,7 +38,14 @@ void MainWindow::on_action_2_triggered() // open existing file
     QTextStream in(&file);
     QString fileContent = in.readAll();
 
-    ui->textEdit->setText(fileContent);
+    QTextEdit *textEdit = new QTextEdit;
+    textEdit->setText(fileContent);
+
+
+
+    QFileInfo fileInfo(filePath);
+    QString fileNameWithoutExtension = fileInfo.completeBaseName();
+    ui->tabWidget->addTab(textEdit, fileNameWithoutExtension);
 
     file.flush();
 }
@@ -61,39 +65,39 @@ void MainWindow::on_action_5_triggered() // save to specified path
 
 void MainWindow::on_action_16_triggered() // addind a table
 {
-    QTextTableFormat tableFormat;
-    tableFormat.setAlignment(Qt::AlignCenter);
-    tableFormat.setBorderStyle( QTextTableFormat::BorderStyle_Solid );
-    tableFormat.setCellPadding( 4 );
-    tableFormat.setCellSpacing( 0 );
-    tableFormat.setWidth( QTextLength( QTextLength::PercentageLength, 50 ) );
+    // QTextTableFormat tableFormat;
+    // tableFormat.setAlignment(Qt::AlignCenter);
+    // tableFormat.setBorderStyle( QTextTableFormat::BorderStyle_Solid );
+    // tableFormat.setCellPadding( 4 );
+    // tableFormat.setCellSpacing( 0 );
+    // tableFormat.setWidth( QTextLength( QTextLength::PercentageLength, 50 ) );
 
-    ui->textEdit->textCursor().insertTable(3, 7, tableFormat);
+    // ui->textEdit->textCursor().insertTable(3, 7, tableFormat);
 
-    QTextCursor cursor(ui->textEdit->textCursor());
-    cursor.setPosition(1);
-    ui->textEdit->setTextCursor(cursor);
+    // QTextCursor cursor(ui->textEdit->textCursor());
+    // cursor.setPosition(1);
+    // ui->textEdit->setTextCursor(cursor);
 
-    ui->textEdit->textCursor().currentTable();
+    // ui->textEdit->textCursor().currentTable();
 }
 
 void MainWindow::on_action_17_triggered() // font selection
 {
-    bool ok;
-    QFont font = QFontDialog::getFont(&ok, this);
-    if (ok) {
-        ui->textEdit->setFont(font);
-    }
+    // bool ok;
+    // QFont font = QFontDialog::getFont(&ok, this);
+    // if (ok) {
+    //     ui->textEdit->setFont(font);
+    // }
 }
 
 void MainWindow::on_action_18_triggered() // select text color
 {
-    QColor color = QColorDialog::getColor(Qt::black, this, "Выберите цвет текста");
-    if (color.isValid()) {
-        QTextCharFormat format;
-        format.setForeground(color);
-        QTextCursor cursor = ui->textEdit->textCursor();
-        cursor.mergeCharFormat(format);
-        ui->textEdit->mergeCurrentCharFormat(format);
-    }
+    // QColor color = QColorDialog::getColor(Qt::black, this, "Выберите цвет текста");
+    // if (color.isValid()) {
+    //     QTextCharFormat format;
+    //     format.setForeground(color);
+    //     QTextCursor cursor = ui->textEdit->textCursor();
+    //     cursor.mergeCharFormat(format);
+    //     ui->textEdit->mergeCurrentCharFormat(format);
+    // }
 }
