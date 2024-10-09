@@ -16,7 +16,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_triggered() // creating a new file
 {
+    if (ui->tab) {
 
+    }
 }
 
 void MainWindow::on_action_2_triggered() // open existing file
