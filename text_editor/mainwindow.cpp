@@ -47,7 +47,7 @@ void MainWindow::on_action_2_triggered() // open existing file
     QString fileNameWithoutExtension = fileInfo.completeBaseName();
     ui->tabWidget->addTab(textEdit, fileNameWithoutExtension);
 
-    file.flush();
+    // file.flush();
 }
 
 void MainWindow::on_action_4_triggered() // save to existing path
