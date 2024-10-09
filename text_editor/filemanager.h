@@ -22,6 +22,7 @@ public slots:
     void saveFile();
     void saveFileAs();
     void closeTab(int index);
+    QTextEdit* getCurrentTextEdit();
 
 private:
     QTabWidget* m_tabWidget;

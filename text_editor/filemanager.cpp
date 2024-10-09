@@ -79,3 +79,8 @@ void FileManager::closeTab(int index) {
         m_tabWidget->removeTab(index);
     }
 }
+
+QTextEdit* FileManager::getCurrentTextEdit() {
+    QTextEdit *textEdit = qobject_cast<QTextEdit *>(m_tabWidget->currentWidget());
+    return textEdit;
+}
