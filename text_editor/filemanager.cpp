@@ -1,82 +1,81 @@
-#include "filemanager.h"
-#include <QFile>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QMessageBox>
+#include "FileManager.h"
 
-// Конструктор
-FileManager::FileManager(QObject* parent)
-    : QObject(parent), currentFile("") {}
+FileManager::FileManager(QTabWidget* tabWidget, QWidget* parent)
+    : QWidget(parent), m_tabWidget(tabWidget) {
+    connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &FileManager::closeTab);
+}
 
-// Открыть файл
-bool FileManager::openFile(QWidget* parent)
-{
-    QString fileName = QFileDialog::getOpenFileName(parent,
-                                                    tr("Open File"),
-                                                    "",
-                                                    tr("Text Files (*.txt);;All Files (*)"));
-    if (fileName.isEmpty())
-        return false;
+void FileManager::createNewFile() {
+    QTextEdit* textEdit = new QTextEdit();
+    QString tabName = "Новый файл";
+    m_tabWidget->addTab(textEdit, tabName);
+    m_tabWidget->setCurrentWidget(textEdit);
+    m_currentFileName.clear(); // сброс имени текущего файла
+}
+
+void FileManager::openFile() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Открыть файл"), "", tr("Text Files (*.txt);;All Files (*)"));
+    if (fileName.isEmpty()) return;
 
     QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QMessageBox::warning(parent, tr("Error"), tr("Cannot open file: ") + file.errorString());
-        return false;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, tr("Ошибка"), tr("Не удалось открыть файл"));
+        return;
     }
 
-    QTextStream in(&file);
-    fileContent = in.readAll();
+    QTextEdit* textEdit = new QTextEdit();
+    textEdit->setPlainText(file.readAll());
     file.close();
-    currentFile = fileName;
-    return true;
+
+    QString tabName = QFileInfo(fileName).fileName(); // получить имя файла без пути
+    m_tabWidget->addTab(textEdit, tabName);
+    m_tabWidget->setCurrentWidget(textEdit);
+    m_currentFileName = fileName; // сохранить имя файла
 }
 
-// Сохранить файл
-bool FileManager::saveFile(QWidget* parent)
-{
-    if (currentFile.isEmpty())
-        return saveFileAs(parent);
-
-    QFile file(currentFile);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QMessageBox::warning(parent, tr("Error"), tr("Cannot save file: ") + file.errorString());
-        return false;
+void FileManager::saveFile() {
+    if (m_tabWidget->count() == 0) { // нечего сохранять
+        return;
     }
 
-    QTextStream out(&file);
-    out << fileContent;
-    file.close();
-    return true;
+    if (m_currentFileName.isEmpty()) {
+        saveFileAs(); // если файла нет, вызвать сохранение как
+        return;
+    }
+
+    QTextEdit* currentTextEdit = qobject_cast<QTextEdit*>(m_tabWidget->currentWidget());
+    if (currentTextEdit) {
+        QFile file(m_currentFileName);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QMessageBox::warning(this, tr("Ошибка"), tr("Не удалось сохранить файл"));
+            return;
+        }
+        file.write(currentTextEdit->toPlainText().toUtf8());
+        file.close();
+    }
+
+    int currentIndex = m_tabWidget->currentIndex();
+    if (currentIndex != -1) {
+        QString newTabName = QFileInfo(m_currentFileName).baseName(); // Получаем имя файла без пути
+        m_tabWidget->setTabText(currentIndex, newTabName); // Обновляем заголовок вкладки
+    }
 }
 
-// Сохранить файл как
-bool FileManager::saveFileAs(QWidget* parent)
-{
-    QString fileName = QFileDialog::getSaveFileName(parent, tr("Save File As"), "", tr("Text Files (*.txt);;All Files (*)"));
-    if (fileName.isEmpty())
-        return false;
+void FileManager::saveFileAs() {
+    if (m_tabWidget->count() == 0) { // нечего сохранять
+        return;
+    }
 
-    currentFile = fileName;
-    return saveFile(parent);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Сохранить как"), "", tr("Text Files (*.txt);;All Files (*)"));
+    if (fileName.isEmpty()) return;
+
+    m_currentFileName = fileName; // обновить текущее имя файла
+    saveFile(); // сохранить файл
+
 }
 
-// Закрыть файл
-void FileManager::closeFile()
-{
-    currentFile.clear();
-    fileContent.clear();
-}
-
-// Получить содержимое файла
-QString FileManager::getFileContent() const
-{
-    return fileContent;
-}
-
-// Установить содержимое файла
-void FileManager::setFileContent(const QString& content)
-{
-    fileContent = content;
+void FileManager::closeTab(int index) {
+    if (index >= 0) {
+        m_tabWidget->removeTab(index);
+    }
 }

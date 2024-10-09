@@ -1,66 +1,41 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "declarations.h"
+#include "filemanager.h"
+
+FileManager *fileManager;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    fileManager = new FileManager(ui->tabWidget, NULL);
 }
 
 MainWindow::~MainWindow()
 {
+    delete fileManager;
     delete ui;
 }
 
 void MainWindow::on_action_triggered() // creating a new file
 {
+    fileManager->createNewFile();
 }
 
 void MainWindow::on_action_2_triggered() // open existing file
 {
-    QString filePath = QFileDialog::getOpenFileName(this,
-                                                    tr("Open file"),
-                                                    QDir::currentPath(),
-                                                    "Text Files (*.txt);;All Files (*.*)");
-    if (filePath.isEmpty()) {
-        return;
-    }
-
-    QFile file(filePath);
-
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл.");
-        return;
-    }
-
-    QTextStream in(&file);
-    QString fileContent = in.readAll();
-
-    QTextEdit *textEdit = new QTextEdit;
-    textEdit->setText(fileContent);
-
-
-
-    QFileInfo fileInfo(filePath);
-    QString fileNameWithoutExtension = fileInfo.completeBaseName();
-    ui->tabWidget->addTab(textEdit, fileNameWithoutExtension);
-
-    // file.flush();
+    fileManager->openFile();
 }
 
 void MainWindow::on_action_4_triggered() // save to existing path
 {
-
+    fileManager->saveFile();
 }
 
 void MainWindow::on_action_5_triggered() // save to specified path
 {
-    QString fileName = QFileDialog::getSaveFileName(this,
-                                                    tr("Save file"),
-                                                    QDir::currentPath(),
-                                                    "Text Files (*.txt);;All Files (*.*)");
+    fileManager->saveFileAs();
 }
 
 void MainWindow::on_action_16_triggered() // addind a table

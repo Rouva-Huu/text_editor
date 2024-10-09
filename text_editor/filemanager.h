@@ -1,25 +1,31 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-#include <QObject>
+#include <QWidget>
+#include <QTabWidget>
+#include <QTextEdit>
+#include <QFileDialog>
+#include <QFile>
+#include <QMessageBox>
+#include <QVBoxLayout>
+#include <QPushButton>
 
-class FileManager : public QObject
-{
+class FileManager : public QWidget {
     Q_OBJECT
+
 public:
-    explicit FileManager(QObject* parent = nullptr);
+    explicit FileManager(QTabWidget* tabWidget, QWidget* parent = nullptr);
 
-    bool openFile(QWidget* parent);     // Открыть файл
-    bool saveFile(QWidget* parent);     // Сохранить файл
-    bool saveFileAs(QWidget* parent);   // Сохранить файл как
-    void closeFile();                   // Закрыть файл
-
-    QString getFileContent() const;     // Получить содержимое файла
-    void setFileContent(const QString& content);  // Установить содержимое файла
+public slots:
+    void createNewFile();
+    void openFile();
+    void saveFile();
+    void saveFileAs();
+    void closeTab(int index);
 
 private:
-    QString currentFile;    // Путь к текущему открытому файлу
-    QString fileContent;    // Содержимое файла
+    QTabWidget* m_tabWidget;
+    QString m_currentFileName; // имя открытого файла
 };
 
 #endif // FILEMANAGER_H
