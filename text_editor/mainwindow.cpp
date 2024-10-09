@@ -41,7 +41,7 @@ void MainWindow::on_action_2_triggered() // open existing file
 
     ui->textEdit->setText(fileContent);
 
-    file.flush();
+    // file.flush();
 }
 
 void MainWindow::on_action_4_triggered() // save to existing path
