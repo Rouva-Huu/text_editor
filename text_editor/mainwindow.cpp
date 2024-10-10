@@ -1,60 +1,44 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "declarations.h"
+#include "filemanager.h"
+
+#include <QFontDialog>
+#include <QColorDialog>
+
+FileManager *fileManager;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    fileManager = new FileManager(ui->tabWidget, NULL);
 }
 
 MainWindow::~MainWindow()
 {
+    delete fileManager;
     delete ui;
 }
 
 void MainWindow::on_action_triggered() // creating a new file
 {
-
+    fileManager->createNewFile();
 }
 
 void MainWindow::on_action_2_triggered() // open existing file
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Open file"),
-                                                    QDir::currentPath(),
-                                                    "Text Files (*.txt);;All Files (*.*)");
-    if (fileName.isEmpty()) {
-        return;
-    }
-
-    QFile file(fileName);
-
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл.");
-        return;
-    }
-
-    QTextStream in(&file);
-    QString fileContent = in.readAll();
-
-    ui->textEdit->setText(fileContent);
-
-    file.flush();
+    fileManager->openFile();
 }
 
 void MainWindow::on_action_4_triggered() // save to existing path
 {
-
+    fileManager->saveFile();
 }
 
 void MainWindow::on_action_5_triggered() // save to specified path
 {
-    QString fileName = QFileDialog::getSaveFileName(this,
-                                                    tr("Save file"),
-                                                    QDir::currentPath(),
-                                                    "Text Files (*.txt);;All Files (*.*)");
+    fileManager->saveFileAs();
 }
 
 void MainWindow::on_action_16_triggered() // addind a table
@@ -66,13 +50,13 @@ void MainWindow::on_action_16_triggered() // addind a table
     tableFormat.setCellSpacing( 0 );
     tableFormat.setWidth( QTextLength( QTextLength::PercentageLength, 50 ) );
 
-    ui->textEdit->textCursor().insertTable(3, 7, tableFormat);
+    fileManager->getCurrentTextEdit()->textCursor().insertTable(3, 7, tableFormat);
 
-    QTextCursor cursor(ui->textEdit->textCursor());
+    QTextCursor cursor(fileManager->getCurrentTextEdit()->textCursor());
     cursor.setPosition(1);
-    ui->textEdit->setTextCursor(cursor);
+    fileManager->getCurrentTextEdit()->setTextCursor(cursor);
 
-    ui->textEdit->textCursor().currentTable();
+    fileManager->getCurrentTextEdit()->textCursor().currentTable();
 }
 
 void MainWindow::on_action_17_triggered() // font selection
@@ -80,7 +64,7 @@ void MainWindow::on_action_17_triggered() // font selection
     bool ok;
     QFont font = QFontDialog::getFont(&ok, this);
     if (ok) {
-        ui->textEdit->setFont(font);
+        fileManager->getCurrentTextEdit()->setFont(font);
     }
 }
 
@@ -90,8 +74,8 @@ void MainWindow::on_action_18_triggered() // select text color
     if (color.isValid()) {
         QTextCharFormat format;
         format.setForeground(color);
-        QTextCursor cursor = ui->textEdit->textCursor();
+        QTextCursor cursor = fileManager->getCurrentTextEdit()->textCursor();
         cursor.mergeCharFormat(format);
-        ui->textEdit->mergeCurrentCharFormat(format);
+        fileManager->getCurrentTextEdit()->mergeCurrentCharFormat(format);
     }
 }
