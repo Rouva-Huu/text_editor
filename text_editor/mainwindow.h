@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <tabledialog.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -34,5 +35,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Ui::TableDialog *uiTD;
+    TableDialog *tableDialog;
+
 };
 #endif // MAINWINDOW_H

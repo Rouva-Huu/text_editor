@@ -1,14 +1,7 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-#include <QWidget>
-#include <QTabWidget>
-#include <QTextEdit>
-#include <QFileDialog>
-#include <QFile>
-#include <QMessageBox>
-#include <QVBoxLayout>
-#include <QPushButton>
+#include "declarations.h"
 
 class FileManager : public QWidget {
     Q_OBJECT

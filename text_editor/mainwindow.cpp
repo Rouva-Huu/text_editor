@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "filemanager.h"
-
-#include <QFontDialog>
-#include <QColorDialog>
+#include "tabledialog.h"
+#include "declarations.h"
 
 FileManager *fileManager;
 
@@ -43,19 +42,34 @@ void MainWindow::on_action_5_triggered() // save to specified path
 
 void MainWindow::on_action_16_triggered() // addind a table
 {
+    tableDialog = new TableDialog(this);
+    tableDialog->setModal(true);
+    tableDialog->exec();
+
     QTextTableFormat tableFormat;
-    tableFormat.setAlignment(Qt::AlignCenter);
+    switch (tableDialog->tableAlignment()) {
+    case 0:
+        tableFormat.setAlignment(Qt::AlignCenter);
+        break;
+    case 1:
+        tableFormat.setAlignment(Qt::AlignLeft);
+        break;
+    case 2:
+        tableFormat.setAlignment(Qt::AlignRight);
+        break;
+    default:
+        break;
+    }
     tableFormat.setBorderStyle( QTextTableFormat::BorderStyle_Solid );
     tableFormat.setCellPadding( 4 );
     tableFormat.setCellSpacing( 0 );
     tableFormat.setWidth( QTextLength( QTextLength::PercentageLength, 50 ) );
 
-    fileManager->getCurrentTextEdit()->textCursor().insertTable(3, 7, tableFormat);
+    fileManager->getCurrentTextEdit()->textCursor().insertTable(tableDialog->getRows(), tableDialog->getColumns(), tableFormat);
 
     QTextCursor cursor(fileManager->getCurrentTextEdit()->textCursor());
     cursor.setPosition(1);
     fileManager->getCurrentTextEdit()->setTextCursor(cursor);
-
     fileManager->getCurrentTextEdit()->textCursor().currentTable();
 }
 

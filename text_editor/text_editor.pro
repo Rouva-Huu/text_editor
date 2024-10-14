@@ -11,15 +11,18 @@ CONFIG += c++17
 SOURCES += \
     filemanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tabledialog.cpp
 
 HEADERS += \
     declarations.h \
     filemanager.h \
-    mainwindow.h
+    mainwindow.h \
+    tabledialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    tabledialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
