@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <tabledialog.h>
+#include "editor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,10 +34,16 @@ private slots:
 
     void on_action_16_triggered();
 
+    void on_action_15_triggered();
+
+    void on_action_7_triggered();
+
 private:
     Ui::MainWindow *ui;
     Ui::TableDialog *uiTD;
     TableDialog *tableDialog;
+    Editor *editor;
+    FileManager *fileManager;
 
 };
 #endif // MAINWINDOW_H

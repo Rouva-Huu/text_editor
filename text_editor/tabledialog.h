@@ -1,7 +1,6 @@
 #ifndef TABLEDIALOG_H
 #define TABLEDIALOG_H
 
-#include <QDialog>
 #include "declarations.h"
 
 namespace Ui {

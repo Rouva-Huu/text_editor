@@ -3,8 +3,10 @@
 #include "filemanager.h"
 #include "tabledialog.h"
 #include "declarations.h"
+#include "editor.h"
 
-FileManager *fileManager;
+#include <QStandardPaths>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     fileManager = new FileManager(ui->tabWidget, NULL);
+    editor = new Editor(fileManager);
 }
 
 MainWindow::~MainWindow()
 {
+    delete editor;
     delete fileManager;
     delete ui;
 }
@@ -92,4 +96,14 @@ void MainWindow::on_action_18_triggered() // select text color
         cursor.mergeCharFormat(format);
         fileManager->getCurrentTextEdit()->mergeCurrentCharFormat(format);
     }
+}
+
+void MainWindow::on_action_15_triggered()
+{
+    this->editor->clearContent();
+}
+
+void MainWindow::on_action_7_triggered()
+{
+    this->editor->restoreContent();
 }
