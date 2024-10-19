@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <tabledialog.h>
+#include "tabledialog.h"
 #include "editor.h"
+#include "tablemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,30 +21,38 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_action_triggered();
+    void on_CreateFile_triggered();
 
-    void on_action_2_triggered();
+    void on_OpenFile_triggered();
 
-    void on_action_4_triggered();
+    void on_Save_triggered();
 
-    void on_action_5_triggered();
+    void on_SaveAs_triggered();
 
-    void on_action_17_triggered();
+    void on_CreateTable_triggered();
 
-    void on_action_18_triggered();
+    void on_CustomizeFont_triggered();
 
-    void on_action_16_triggered();
+    void on_TextColor_triggered();
 
-    void on_action_15_triggered();
+    void on_Clear_triggered();
 
-    void on_action_7_triggered();
+    void on_Redo_triggered();
+
+    void on_Palette_triggered();
+
+    void on_SaveTable_triggered();
+
+    void on_OpenTable_triggered();
+
+    void on_SaveTableAs_triggered();
 
 private:
     Ui::MainWindow *ui;
-    Ui::TableDialog *uiTD;
     TableDialog *tableDialog;
     Editor *editor;
     FileManager *fileManager;
+    TableManager *tableManager;
 
 };
 #endif // MAINWINDOW_H

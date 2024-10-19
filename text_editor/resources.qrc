@@ -24,5 +24,9 @@
         <file>img/table.png</file>
         <file>img/text_color.png</file>
         <file>img/undo.png</file>
+        <file>img/add_table.png</file>
+        <file>img/open_table.png</file>
+        <file>img/rows.png</file>
+        <file>img/table_properties.png</file>
     </qresource>
 </RCC>

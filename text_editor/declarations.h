@@ -2,9 +2,11 @@
 #define DECLARATIONS_H
 
 #include <QTextTableFormat>
+#include <QTableWidgetItem>
 #include <QTemporaryFile>
 #include <QTextDocument>
 #include <QColorDialog>
+#include <QTableWidget>
 #include <QFontDialog>
 #include <QFileDialog>
 #include <QMessageBox>
