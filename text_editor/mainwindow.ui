@@ -34,7 +34,7 @@
      <x>0</x>
      <y>0</y>
      <width>1008</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -154,15 +154,6 @@
     <string>Сохранить как...</string>
    </property>
   </action>
-  <action name="action_6">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/img/img/undo.png</normaloff>:/img/img/undo.png</iconset>
-   </property>
-   <property name="text">
-    <string>Отменить</string>
-   </property>
-  </action>
   <action name="action_7">
    <property name="icon">
     <iconset resource="resources.qrc">
@@ -170,6 +161,9 @@
    </property>
    <property name="text">
     <string>Вернуть</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
   <action name="action_9">
@@ -215,6 +209,9 @@
    </property>
    <property name="text">
     <string>Очистить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
    </property>
   </action>
   <action name="action_16">

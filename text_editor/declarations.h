@@ -17,6 +17,8 @@
 #include <QWidget>
 #include <QCursor>
 #include <QFile>
+#include <QDialog>
 #include <QtGui>
+#include <QString>
 
 #endif // DECLARATIONS_H

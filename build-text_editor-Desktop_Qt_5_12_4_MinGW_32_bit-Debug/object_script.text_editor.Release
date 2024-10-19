@@ -1,0 +1,10 @@
+release/editing.o
+release/filemanager.o
+release/main.o
+release/mainwindow.o
+release/tabledialog.o
+release/qrc_resources.o
+release/moc_editing.o
+release/moc_filemanager.o
+release/moc_mainwindow.o
+release/moc_tabledialog.o
