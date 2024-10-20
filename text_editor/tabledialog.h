@@ -14,7 +14,7 @@ class TableDialog : public QDialog
 public:
     int getColumns();
     int getRows();
-    int tableAlignment();
+    // int tableAlignment();
     explicit TableDialog(QWidget *parent = nullptr);
     ~TableDialog();
 
