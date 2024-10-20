@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     fileManager = new FileManager(ui->tabWidget, NULL);
     tableManager = new TableManager(ui->tabWidget, NULL);
     editor = new Editor(fileManager);
+    connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_CreateFile_triggered()
 {
-    fileManager->createNewFile();
+    fileManager->createNewFile("txt");
 }
 
 void MainWindow::on_OpenFile_triggered()
@@ -53,7 +54,7 @@ void MainWindow::on_CreateTable_triggered()
     tableDialog->setModal(true);
     tableDialog->exec();
 
-    tableManager->createNewTable(tableDialog->getRows(), tableDialog->getColumns());
+    fileManager->createNewFile("csv", tableDialog->getRows(), tableDialog->getColumns());
 }
 
 void MainWindow::on_CustomizeFont_triggered()
@@ -101,30 +102,67 @@ void MainWindow::on_Palette_triggered()
 {
     QColor textColor = QColorDialog::getColor(Qt::black, this, "Выберите цвет текста");
     if (textColor.isValid()) {
-        tableManager->setTextColor(textColor);
+        fileManager->setTextColor(textColor);
     }
 
     QColor backColor = QColorDialog::getColor(Qt::white, this, "Выберите цвет фона");
     if (backColor.isValid()) {
-        tableManager->setBackColor(backColor);
+        fileManager->setBackColor(backColor);
     }
 }
 
 
 void MainWindow::on_SaveTable_triggered()
 {
-    tableManager->saveTable();
+    fileManager->saveFile();
 }
-
 
 void MainWindow::on_OpenTable_triggered()
 {
-    tableManager->openTable();
+    fileManager->openFile();
 }
-
 
 void MainWindow::on_SaveTableAs_triggered()
 {
-    tableManager->saveTableAs();
+    fileManager->saveFileAs();
+}
+
+void MainWindow::closeTab(int index)
+{
+    QWidget *widget = ui->tabWidget->widget(index);
+
+    if (widget) {
+        // Попытка преобразования в QTextEdit
+        QTextEdit* editor = qobject_cast<QTextEdit*>(widget);
+        QTableWidget* table = qobject_cast<QTableWidget*>(widget);
+        QString filePath = ui->tabWidget->tabToolTip(index);
+
+        // Проверка для QTextEdit
+        if (editor && !editor->document()->isModified()) {
+            ui->tabWidget->removeTab(index);
+            delete widget;
+        }
+        // Проверка для QTableWidget (примерный способ, можно усовершенствовать)
+        else if (table) {
+            ui->tabWidget->removeTab(index);
+            delete widget;
+        }
+        else {
+            // Диалоговое окно для подтверждения действий
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Закрыть файл",
+                                          "В этом файле есть несохраненные изменения. Хотите сохранить их перед закрытием?",
+                                          QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+            if (reply == QMessageBox::Yes) {
+                fileManager->saveFile();
+                ui->tabWidget->removeTab(index);
+                delete widget;
+            } else if (reply == QMessageBox::No) {
+                ui->tabWidget->removeTab(index);
+                delete widget;
+            }
+        }
+    }
 }
 

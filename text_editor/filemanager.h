@@ -10,11 +10,14 @@ public:
     explicit FileManager(QTabWidget* tabWidget, QWidget* parent = nullptr);
 
 public slots:
-    void createNewFile();
+    void createNewFile(QString file_type, int rows = 0, int columns = 0);
     void openFile();
     void saveFile();
     void saveFileAs();
-    void closeTab(int index);
+    void setTextColor(QColor color);
+    void setBackColor(QColor color);
+
+    QTableWidget* getCurrentTable();
     QTextEdit* getCurrentTextEdit();
 
 private:
