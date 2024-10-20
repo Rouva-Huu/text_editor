@@ -24,6 +24,9 @@
       <property name="currentIndex">
        <number>-1</number>
       </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -65,11 +68,6 @@
      <string>Таблица</string>
     </property>
     <addaction name="CreateTable"/>
-    <addaction name="OpenTable"/>
-    <addaction name="separator"/>
-    <addaction name="SaveTable"/>
-    <addaction name="SaveTableAs"/>
-    <addaction name="separator"/>
     <addaction name="Palette"/>
    </widget>
    <addaction name="menu"/>
@@ -121,9 +119,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="CreateTable"/>
-   <addaction name="OpenTable"/>
-   <addaction name="SaveTable"/>
-   <addaction name="separator"/>
    <addaction name="Palette"/>
   </widget>
   <action name="CreateFile">
@@ -256,33 +251,6 @@
    </property>
    <property name="text">
     <string>Палитра</string>
-   </property>
-  </action>
-  <action name="SaveTable">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/img/img/save.png</normaloff>:/img/img/save.png</iconset>
-   </property>
-   <property name="text">
-    <string>Сохранить</string>
-   </property>
-  </action>
-  <action name="OpenTable">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/img/img/open_table.png</normaloff>:/img/img/open_table.png</iconset>
-   </property>
-   <property name="text">
-    <string>Открыть</string>
-   </property>
-  </action>
-  <action name="SaveTableAs">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/img/img/save_as.png</normaloff>:/img/img/save_as.png</iconset>
-   </property>
-   <property name="text">
-    <string>Сохранить как...</string>
    </property>
   </action>
  </widget>

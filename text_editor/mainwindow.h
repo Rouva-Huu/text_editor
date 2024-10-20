@@ -47,6 +47,8 @@ private slots:
 
     void on_SaveTableAs_triggered();
 
+    void closeTab(int index);
+
 private:
     Ui::MainWindow *ui;
     TableDialog *tableDialog;
