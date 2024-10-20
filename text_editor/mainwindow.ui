@@ -144,6 +144,9 @@
    <property name="text">
     <string>Открыть</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="Save">
    <property name="icon">
@@ -153,6 +156,9 @@
    <property name="text">
     <string>Сохранить</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="SaveAs">
    <property name="icon">
@@ -161,6 +167,9 @@
    </property>
    <property name="text">
     <string>Сохранить как...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="Redo">
@@ -183,6 +192,9 @@
    <property name="text">
     <string>Копировать</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="Paste">
    <property name="icon">
@@ -191,6 +203,9 @@
    </property>
    <property name="text">
     <string>Вставить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
    </property>
   </action>
   <action name="Find">
@@ -201,6 +216,9 @@
    <property name="text">
     <string>Найти</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
   </action>
   <action name="Replace">
    <property name="icon">
@@ -209,6 +227,9 @@
    </property>
    <property name="text">
     <string>Заменить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="Clear">
@@ -231,6 +252,9 @@
    <property name="text">
     <string>Создать </string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="CustomizeFont">
    <property name="icon">
@@ -239,6 +263,9 @@
    </property>
    <property name="text">
     <string>Настроить шрифт</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="TextColor">
@@ -249,6 +276,9 @@
    <property name="text">
     <string>Цвет текста</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
+   </property>
   </action>
   <action name="Palette">
    <property name="icon">
@@ -257,6 +287,9 @@
    </property>
    <property name="text">
     <string>Палитра</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

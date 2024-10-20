@@ -8,12 +8,14 @@
 #include <QStandardPaths>
 #include <QDebug>
 #include <QInputDialog>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    loadSettings();
     fileManager = new FileManager(ui->tabWidget, NULL);
     editor = new Editor(fileManager);
     connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
@@ -21,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete editor;
     delete fileManager;
     delete ui;
@@ -205,5 +208,19 @@ void MainWindow::on_Paste_triggered()
     QTextEdit *textEdit = fileManager->getCurrentTextEdit();
     QClipboard *clipboard = QApplication::clipboard();
     textEdit->insertPlainText(clipboard->text());
+}
+
+void MainWindow::saveSettings() {
+    QSettings settings("Sibsutis", "Text Editor");
+
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("state", saveState());
+}
+
+void MainWindow::loadSettings() {
+    QSettings settings("Sibsutis", "Text Editor");
+
+    restoreGeometry(settings.value("geometry").toByteArray());
+    restoreState(settings.value("state").toByteArray());
 }
 
