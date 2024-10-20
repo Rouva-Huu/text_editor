@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTextEdit>
 #include <QTabWidget>
+#include <QTableWidget>
 
 class FileManager : public QWidget {
     Q_OBJECT

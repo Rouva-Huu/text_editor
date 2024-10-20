@@ -33,14 +33,11 @@ private slots:
     void on_SaveTable_triggered();
     void on_OpenTable_triggered();
     void on_SaveTableAs_triggered();
-
     void on_Find_triggered();
-
     void on_Replace_triggered();
-
     void on_Copy_triggered();
-
     void on_Paste_triggered();
+    void closeTab(int index);
 
 private:
     Ui::MainWindow *ui;
