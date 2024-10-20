@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "filemanager.h"
 #include "tabledialog.h"
-#include "tablemanager.h"
 #include "declarations.h"
 #include "editor.h"
 
@@ -15,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     fileManager = new FileManager(ui->tabWidget, NULL);
-    tableManager = new TableManager(ui->tabWidget, NULL);
     editor = new Editor(fileManager);
     connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
 }
@@ -24,7 +22,6 @@ MainWindow::~MainWindow()
 {
     delete editor;
     delete fileManager;
-    delete tableManager;
     delete ui;
 }
 
