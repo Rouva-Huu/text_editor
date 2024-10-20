@@ -1,4 +1,5 @@
 #include "FileManager.h"
+#include "declarations.h"
 
 FileManager::FileManager(QTabWidget* tabWidget, QWidget* parent)
     : QWidget(parent), m_tabWidget(tabWidget) {

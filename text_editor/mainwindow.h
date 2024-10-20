@@ -21,32 +21,26 @@ public:
 
 private slots:
     void on_CreateFile_triggered();
-
     void on_OpenFile_triggered();
-
     void on_Save_triggered();
-
     void on_SaveAs_triggered();
-
     void on_CreateTable_triggered();
-
     void on_CustomizeFont_triggered();
-
     void on_TextColor_triggered();
-
     void on_Clear_triggered();
-
     void on_Redo_triggered();
-
     void on_Palette_triggered();
-
     void on_SaveTable_triggered();
-
     void on_OpenTable_triggered();
-
     void on_SaveTableAs_triggered();
 
-    void closeTab(int index);
+    void on_Find_triggered();
+
+    void on_Replace_triggered();
+
+    void on_Copy_triggered();
+
+    void on_Paste_triggered();
 
 private:
     Ui::MainWindow *ui;

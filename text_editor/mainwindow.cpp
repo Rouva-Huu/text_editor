@@ -7,6 +7,7 @@
 
 #include <QStandardPaths>
 #include <QDebug>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -161,5 +162,48 @@ void MainWindow::closeTab(int index)
             }
         }
     }
+}
+
+void MainWindow::on_Find_triggered()
+{
+    bool ok;
+    QTextEdit *textEdit = fileManager->getCurrentTextEdit();
+    QString searchText = QInputDialog::getText(this, "Найти текст", "Введите текст для поиска:", QLineEdit::Normal, "", &ok);
+    if (ok && !searchText.isEmpty()) {
+        QTextDocument::FindFlags options;
+        if (textEdit->find(searchText, options)) {
+        } else {
+            QMessageBox::information(this, "Результат поиска", "Текст не найден.");
+        }
+    }
+}
+
+void MainWindow::on_Replace_triggered()
+{
+    bool ok;
+    QTextEdit *textEdit = fileManager->getCurrentTextEdit();
+    QString searchText = QInputDialog::getText(this, "Заменить текст", "Введите текст для замены:", QLineEdit::Normal, "", &ok);
+    if (ok && !searchText.isEmpty()) {
+        QString replaceText = QInputDialog::getText(this, "Заменить текст", "Введите новый текст:", QLineEdit::Normal, "", &ok);
+        if (ok) {
+            QString content = textEdit->toPlainText();
+            content.replace(searchText, replaceText);
+            textEdit->setPlainText(content);
+        }
+    }
+}
+
+void MainWindow::on_Copy_triggered()
+{
+    QTextEdit *textEdit = fileManager->getCurrentTextEdit();
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(textEdit->textCursor().selectedText());
+}
+
+void MainWindow::on_Paste_triggered()
+{
+    QTextEdit *textEdit = fileManager->getCurrentTextEdit();
+    QClipboard *clipboard = QApplication::clipboard();
+    textEdit->insertPlainText(clipboard->text());
 }
 
