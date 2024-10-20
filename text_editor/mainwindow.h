@@ -38,6 +38,8 @@ private slots:
     void on_Copy_triggered();
     void on_Paste_triggered();
     void closeTab(int index);
+    void saveSettings();
+    void loadSettings();
 
 private:
     Ui::MainWindow *ui;

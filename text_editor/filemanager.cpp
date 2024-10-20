@@ -33,7 +33,7 @@ void FileManager::openFile() {
         QFileInfo fileInfo(fileName);
         QString extension = fileInfo.suffix().toLower();
 
-        if (extension == "txt") {
+        if (extension != "csv") {
             QFile file(fileName);
             if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QMessageBox::warning(this, tr("Ошибка"), tr("Не удалось открыть файл"));
@@ -234,4 +234,12 @@ QTextEdit* FileManager::getCurrentTextEdit() {
 QTableWidget* FileManager::getCurrentTable() {
     QTableWidget *table = qobject_cast<QTableWidget *>(m_tabWidget->currentWidget());
     return table;
+}
+
+QTabWidget* FileManager::getTabWidget() {
+    return m_tabWidget;
+}
+
+void FileManager::setTabWidget(QTabWidget* tabWidget) {
+    m_tabWidget = tabWidget;
 }

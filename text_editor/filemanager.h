@@ -22,6 +22,8 @@ public slots:
 
     QTableWidget* getCurrentTable();
     QTextEdit* getCurrentTextEdit();
+    QTabWidget* getTabWidget();
+    void setTabWidget(QTabWidget* tabWidget);
 
 private:
     QTabWidget* m_tabWidget;
