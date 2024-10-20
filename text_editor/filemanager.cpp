@@ -1,4 +1,5 @@
 #include "FileManager.h"
+#include "declarations.h"
 
 FileManager::FileManager(QTabWidget* tabWidget, QWidget* parent)
     : QWidget(parent), m_tabWidget(tabWidget) {
@@ -75,9 +76,7 @@ void FileManager::saveFileAs() {
 }
 
 void FileManager::closeTab(int index) {
-    if (index >= 0) {
-        m_tabWidget->removeTab(index);
-    }
+    m_tabWidget->removeTab(index);
 }
 
 QTextEdit* FileManager::getCurrentTextEdit() {
