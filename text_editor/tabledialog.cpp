@@ -21,6 +21,3 @@ int TableDialog::getRows() {
     return ui->spinBox_2->value();
 }
 
-// int TableDialog::tableAlignment() {
-//     return ui->comboBox->currentIndex();
-// }

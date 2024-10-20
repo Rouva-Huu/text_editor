@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "tabledialog.h"
 #include "editor.h"
-#include "tablemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -48,7 +47,5 @@ private:
     TableDialog *tableDialog;
     Editor *editor;
     FileManager *fileManager;
-    TableManager *tableManager;
-
 };
 #endif // MAINWINDOW_H

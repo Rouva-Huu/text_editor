@@ -13,16 +13,14 @@ SOURCES += \
     filemanager.cpp \
     main.cpp \
     mainwindow.cpp \
-    tabledialog.cpp \
-    tablemanager.cpp
+    tabledialog.cpp
 
 HEADERS += \
     declarations.h \
     editor.h \
     filemanager.h \
     mainwindow.h \
-    tabledialog.h \
-    tablemanager.h
+    tabledialog.h
 
 FORMS += \
     mainwindow.ui \
